@@ -22,7 +22,7 @@ public class Game {
 
     public void play(Scanner scanner) {
         while (!gameOver) {
-            displayInitialGrid();
+            displayGrid();
             System.out.print("Select a square to reveal (e.g. A1): ");
             String input = scanner.nextLine().trim();
 
@@ -43,7 +43,7 @@ public class Game {
 
                         // Check if player won
                         if (checkWin()) {
-                            displayUpdatedGrid();
+                            displayGrid();
                             System.out.println("Congratulations, you have won the game!");
                             gameOver = true;
                         }
@@ -81,7 +81,7 @@ public class Game {
             square.setRevealed(true);
 
             if (square.isMine()) {
-                displayUpdatedGrid();
+                displayGrid();
                 System.out.println("Oh no, you detonated a mine! Game over.");
                 gameOver = true;
             } else if (square.getAdjacentMines() == 0) {
@@ -109,19 +109,9 @@ public class Game {
         return true;
     }
 
-    private void displayInitialGrid(){
+    private void displayGrid() {
         System.out.println();
         System.out.println("Here is your minefield:");
-        displayGrid();
-    }
-
-    private void displayUpdatedGrid(){
-        System.out.println();
-        System.out.println("Here is your updated minefield:");
-        displayGrid();
-    }
-
-    private void displayGrid() {
         // Print column headers
         System.out.print("  ");
         for (int i = 1; i <= grid.getSize(); i++) {
